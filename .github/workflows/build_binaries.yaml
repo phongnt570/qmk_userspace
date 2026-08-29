@@ -11,7 +11,8 @@ jobs:
     uses: qmk/.github/.github/workflows/qmk_userspace_build.yml@main
     with:
       qmk_repo: qmk/qmk_firmware
-      qmk_ref: master
+      # Update this SHA only after the keymap builds against a newer QMK revision.
+      qmk_ref: 3f26a9232a2696a99fec54239a7e177da53a5105
 
   publish:
     name: 'QMK Userspace Publish'

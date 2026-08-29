@@ -47,11 +47,23 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+// The matrix must stay enabled for the indicators to render, but earlier
+// firmware could persist a disabled state in EEPROM.
+void keyboard_post_init_user(void) {
+    if (!rgb_matrix_is_enabled()) {
+        rgb_matrix_enable();
+    }
+    rgb_matrix_set_flags(LED_FLAG_ALL);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case PN_RGB_TOGG:
             if (record->event.pressed) {
-                if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
+                if (!rgb_matrix_is_enabled()) {
+                    rgb_matrix_enable();
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                } else if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
                     rgb_matrix_set_flags(LED_FLAG_NONE);
                 } else {
                     rgb_matrix_set_flags(LED_FLAG_ALL);

@@ -18,4 +18,4 @@ The configured build target is `gmmk/pro/rev1/ansi:phongnt570`.
 
 ## Update QMK
 
-The GitHub Actions workflow uses a pinned QMK revision so builds remain reproducible. To update it, change `qmk_ref` in `.github/workflows/build_binaries.yaml`, build locally, then commit and push the change.
+The GitHub Actions workflow uses a pinned QMK revision so builds remain reproducible. To update it, change `qmk_ref` in `.github/workflows/build_firmware.yaml`, build locally, then commit and push the change.

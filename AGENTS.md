@@ -16,7 +16,7 @@ Use a separate `qmk_firmware` checkout only as the upstream firmware and build d
 - Generate `layout.pdf` only with the tracked `generate_layout.py` beside it. Never create the PDF with an untracked one-off script outside this repository.
 - If the visible layout changes, update the generator and documentation, regenerate the PDF, render every page to images, and visually inspect alignment, clipping, and legibility.
 - Do not commit generated files: `.bin`, `.hex`, and `.uf2` firmware and the generated `layout.pdf` are build artifacts and are ignored.
-- Preserve the exact QMK commit in `.github/workflows/build_binaries.yaml`. Do not replace `qmk_ref` with a moving branch.
+- Preserve the exact QMK commit in `.github/workflows/build_firmware.yaml`. Do not replace `qmk_ref` with a moving branch.
 
 ## Verification
 

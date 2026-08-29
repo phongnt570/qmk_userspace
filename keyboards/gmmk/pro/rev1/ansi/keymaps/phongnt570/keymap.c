@@ -9,6 +9,12 @@ enum layer_names {
     _FN,
 };
 
+enum custom_keycodes {
+    // Toggles between full RGB lighting and an indicators-only mode where
+    // effects are dark but the Caps Lock and Fn indicators still render.
+    PN_RGB_TOGG = SAFE_RANGE,
+};
+
 #define MAC_SPOTLIGHT LGUI(KC_SPC)
 #define MAC_EMOJI LCG(KC_SPC)
 
@@ -24,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN] = LAYOUT(
-        RM_TOGG, KC_BRID, KC_BRIU, KC_MCTL, MAC_SPOTLIGHT, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______,        _______,
+        PN_RGB_TOGG, KC_BRID, KC_BRIU, KC_MCTL, MAC_SPOTLIGHT, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______,    _______,
         _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______,        _______,
         _______, RM_VALD, RM_VALU, _______, _______,       _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,         RM_SPDU,
         _______, RM_SATD, RM_SATU, _______, _______,       _______, _______, _______, _______, _______, _______, _______,          _______,         RM_SPDD,
@@ -41,10 +47,33 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case PN_RGB_TOGG:
+            if (record->event.pressed) {
+                if (rgb_matrix_get_flags() == LED_FLAG_ALL) {
+                    rgb_matrix_set_flags(LED_FLAG_NONE);
+                } else {
+                    rgb_matrix_set_flags(LED_FLAG_ALL);
+                }
+            }
+            return false;
+    }
+    return true;
+}
+
 // LED index of the Caps Lock key in the GMMK Pro rev1 ANSI RGB matrix.
 #define CAPS_LOCK_LED_INDEX 3
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // In indicators-only mode the effects skip every LED, so black them out
+    // each frame before drawing the indicators on top.
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+        for (uint8_t index = led_min; index < led_max; index++) {
+            rgb_matrix_set_color(index, 0, 0, 0);
+        }
+    }
+
     if (get_highest_layer(layer_state) == _FN) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             for (uint8_t col = 0; col < MATRIX_COLS; col++) {

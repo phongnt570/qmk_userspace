@@ -473,7 +473,7 @@ def draw_fn_page(c):
         121,
         "RGB CONTROLS",
         [
-            "Esc toggles RGB. F5/F6 or Q/W adjust brightness.",
+            "Esc toggles RGB: full or indicators-only. F5/F6 or Q/W adjust brightness.",
             "A/S saturation. Z/X hue. PgUp/PgDn speed.",
             "Up/Down changes effect. Knob adjusts brightness.",
         ],

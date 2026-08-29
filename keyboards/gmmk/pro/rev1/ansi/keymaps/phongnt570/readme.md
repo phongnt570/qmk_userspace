@@ -31,7 +31,7 @@ Keys not listed here are transparent and fall through to the base layer.
 
 | Key | Action |
 | --- | --- |
-| Esc | Toggle RGB matrix |
+| Esc | Toggle RGB between full lighting and indicators-only |
 | F1 / F2 | Display brightness down / up |
 | F3 | Mission Control |
 | F4 | Spotlight (`Command` + `Space`) |
@@ -53,10 +53,10 @@ The RGB matrix turns off after 20 minutes without keyboard activity and resumes 
 
 ## Indicators
 
-While the RGB matrix is on:
-
 - When Caps Lock is active, the Caps Lock key and both side light strips turn red.
 - While `Fn` is held, every key with an Fn-layer assignment lights up white.
+
+`Fn` + `Esc` toggles between full lighting and an indicators-only mode where the RGB effects are dark but both indicators still work. The indicators-only state is not stored, so the keyboard returns to full lighting after a power cycle. The 20-minute idle timeout turns everything off, including indicators, until the next keypress.
 
 ## Build
 

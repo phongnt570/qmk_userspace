@@ -3,8 +3,7 @@
 Personal QMK keymap for the GMMK Pro Rev 1 ANSI, optimized for macOS.
 
 - [Keymap documentation](keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/readme.md)
-- [Printable layout (PDF)](keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/layout.pdf)
-- [Printable layout generator](keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/generate_layout.py)
+- [Printable layout generator](keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/generate_layout.py) — produces `layout.pdf` locally (not committed)
 
 ## Build locally
 

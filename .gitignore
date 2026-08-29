@@ -17,3 +17,6 @@ compile_commands.json
 
 # Local Python environment for layout generation
 .venv/
+
+# Generated printable layout (regenerate with generate_layout.py)
+keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/layout.pdf

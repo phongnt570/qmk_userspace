@@ -12,10 +12,10 @@ Use a separate `qmk_firmware` checkout only as the upstream firmware and build d
 
 - Start by checking `git status` and reading the keymap's `readme.md`.
 - Keep changes scoped to this userspace unless the task explicitly concerns upstream QMK.
-- Keep `keymap.c`, `config.h`, `rules.mk`, `readme.md`, `generate_layout.py`, and `layout.pdf` consistent.
-- Generate `layout.pdf` only with the tracked `generate_layout.py` beside it. Never create or modify the tracked PDF with an untracked one-off script outside this repository.
+- Keep `keymap.c`, `config.h`, `rules.mk`, `readme.md`, and `generate_layout.py` consistent.
+- Generate `layout.pdf` only with the tracked `generate_layout.py` beside it. Never create the PDF with an untracked one-off script outside this repository.
 - If the visible layout changes, update the generator and documentation, regenerate the PDF, render every page to images, and visually inspect alignment, clipping, and legibility.
-- Do not commit generated `.bin`, `.hex`, or `.uf2` files; they are build artifacts and are ignored.
+- Do not commit generated files: `.bin`, `.hex`, and `.uf2` firmware and the generated `layout.pdf` are build artifacts and are ignored.
 - Preserve the exact QMK commit in `.github/workflows/build_binaries.yaml`. Do not replace `qmk_ref` with a moving branch.
 
 ## Verification
@@ -46,7 +46,7 @@ python3 -m venv .venv
 .venv/bin/python keyboards/gmmk/pro/rev1/ansi/keymaps/phongnt570/generate_layout.py
 ```
 
-The command must overwrite the tracked `layout.pdf` beside the generator. The output is deterministic and includes a fingerprint of `keymap.c`, `config.h`, and `rules.mk`. After generation, render both pages with Poppler `pdftoppm` and inspect the PNGs before committing. A PDF without its reproducible tracked generator is incomplete.
+The command writes `layout.pdf` beside the generator. The PDF is ignored by git and never committed; the tracked generator is the source of truth, and the output is deterministic and includes a fingerprint of `keymap.c`, `config.h`, and `rules.mk`. After changing the generator, regenerate the PDF, render both pages with Poppler `pdftoppm`, and inspect the PNGs before committing the generator change.
 
 ## Hardware safety
 

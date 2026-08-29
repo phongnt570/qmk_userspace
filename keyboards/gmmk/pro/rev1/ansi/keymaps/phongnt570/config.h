@@ -4,4 +4,4 @@
 
 #pragma once
 
-#define RGB_MATRIX_TIMEOUT 1200000
+#define RGB_MATRIX_TIMEOUT (20 * 60 * 1000)

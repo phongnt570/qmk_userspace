@@ -51,6 +51,13 @@ Keys not listed here are transparent and fall through to the base layer.
 
 The RGB matrix turns off after 20 minutes without keyboard activity and resumes on the next input.
 
+## Indicators
+
+While the RGB matrix is on:
+
+- When Caps Lock is active, the Caps Lock key and both side light strips turn red.
+- While `Fn` is held, every key with an Fn-layer assignment lights up white.
+
 ## Build
 
 ```sh

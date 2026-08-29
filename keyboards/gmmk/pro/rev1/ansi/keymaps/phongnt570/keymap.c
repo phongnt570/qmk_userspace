@@ -40,3 +40,34 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_FN]   = {ENCODER_CCW_CW(RM_VALD, RM_VALU)},
 };
 #endif
+
+// LED index of the Caps Lock key in the GMMK Pro rev1 ANSI RGB matrix.
+#define CAPS_LOCK_LED_INDEX 3
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (get_highest_layer(layer_state) == _FN) {
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+            for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+                if (index == NO_LED || index < led_min || index >= led_max) {
+                    continue;
+                }
+                uint16_t keycode = keymap_key_to_keycode(_FN, (keypos_t){col, row});
+                if (keycode > KC_TRNS) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(index, 255, 255, 255);
+                }
+            }
+        }
+    }
+
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 0, 0);
+        for (uint8_t index = led_min; index < led_max; index++) {
+            if (g_led_config.flags[index] & LED_FLAG_UNDERGLOW) {
+                RGB_MATRIX_INDICATOR_SET_COLOR(index, 255, 0, 0);
+            }
+        }
+    }
+
+    return false;
+}
